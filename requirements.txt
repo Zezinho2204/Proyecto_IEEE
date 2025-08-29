@@ -1,3 +1,7 @@
 sqlalchemy
 pymupdf
 spacy
+tabulate
+reportlab
+fastapi
+uvicorn[standard]

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Processor - Interfaz Web</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📄 CV Processor</h1>
+            <p>Procesa automáticamente todos los CVs de la carpeta 'cvs'</p>
+        </div>
+
+        <div id="apiStatus" class="api-status">
+            <span>🔄 Verificando estado de la API...</span>
+        </div>
+
+        <div class="pdf-management-section">
+            <h2>📁 Gestión de Archivos PDF</h2>
+            
+            <div class="pdf-actions">
+                <div class="upload-section">
+                    <h3>Subir nuevo CV</h3>
+                    <div class="file-upload">
+                        <input type="file" id="pdfFile" accept=".pdf" multiple style="display: none;">
+                        <button onclick="document.getElementById('pdfFile').click()" class="btn btn-add">+ Elegir archivos</button>
+                        <button onclick="uploadPDFs()" class="btn btn-upload">📤 Subir</button>
+                        <span id="fileCount" class="file-count"></span>
+                    </div>
+                </div>
+                
+                <div class="database-section">
+                    <h3>Base de datos</h3>
+                    <button onclick="clearDatabase()" class="btn btn-danger">🗑️ Limpiar Base de Datos</button>
+                    <small>Elimina todos los registros de candidatos procesados</small>
+                </div>
+            </div>
+            
+            <div class="pdf-list">
+                <h3>Archivos en la carpeta CVs</h3>
+                <div id="pdfFiles" class="files-container">
+                    <!-- Los archivos aparecerán aquí -->
+                </div>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h2>Procesar CVs</h2>
+            <form onsubmit="event.preventDefault(); processCVs();">
+                <div class="form-group">
+                    <label for="role">Rol específico (opcional):</label>
+                    <input 
+                        type="text" 
+                        id="role" 
+                        name="role" 
+                        placeholder="ej: desarrollador, diseñador, analista..."
+                    >
+                    <small>Deja vacío para detección automática del rol</small>
+                </div>
+
+                <button type="submit" id="processBtn" class="btn">
+                    🚀 Procesar CVs
+                </button>
+            </form>
+        </div>
+
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <p>Procesando CVs, por favor espera...</p>
+        </div>
+
+        <div id="results" class="results">
+            <!-- Los resultados aparecerán aquí -->
+        </div>
+
+        <div id="candidates" class="candidates">
+            <!-- Los candidatos aparecerán aquí -->
+        </div>
+
+        <div class="footer">
+            <p>Asegúrate de que el servidor API esté ejecutándose en <code>http://localhost:8000</code></p>
+            <p>Coloca los archivos PDF en la carpeta <code>cvs/</code></p>
+        </div>
+    </div>
+
+    <!-- Contenedor de notificaciones -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="static/script.js"></script>
+</body>
+</html>
